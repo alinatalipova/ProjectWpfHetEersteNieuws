@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>het eerste nieuws</title>
+</head>
+<body>
+<h1> Het Eerste Nieuws </h1>
+<h2>Vlaamse regering wil zomerscholen om achterstand weg te werken</h2>
+<p><i>CATHY GALLE</i></p>
+<p>
+Tijdens de zomervakantie naar school om de corona-achterstand in te halen. Volgens de Vlaamse regering moet dat kunnen. 
+Ze wil scholen die hierop ingaan een vergoeding geven van 25 euro per dag per leerling.De Vlaamse regering lanceert een open oproep naar scholen, lokale besturen en andere initiatiefnemers. 
+Zo’n zomerschool moet minstens 10 dagen duren en het leren moet afgewisseld worden met sport, spel en cultuur. 
+Niemand kan verplicht worden om deel te nemen aan de zomerschool, maar volgens de Vlaamse regering kunnen klassenraden leerlingen het advies geven om deel te nemen.
+</p>
+
+<p>In de zomerschool komt een leerling terecht in een klein groepje van een tiental leeftijdsgenoten. 
+De leerstof die het groepje krijgt beperkt zich tot twee essentiële leergebieden waar het meest nood aan is. Het aanbod per groepje kan dus nogal verschillen.
+Voor de organisatie van die zomerscholen werken scholen en gemeentebesturen volgens de Vlaamse regering best samen, 
+eventueel met nog andere organisaties zoals jeugdwerking en organisaties die bezig zijn met leerondersteuning. 
+“Ik hoop dat veel lokale besturen, scholen en andere organisaties zullen ingaan op onze open oproep, 
+al besef ik dat zeker de scholen op dit moment met veel andere dingen bezig zijn”, zegt Vlaamse minister van Onderwijs Ben Weyts (N-VA). 
+“We moeten maximaal verhinderen dat sommige leerlingen in september met een achterstand beginnen aan het nieuwe schooljaar.”
+</p>
+
+<p>Vlaams minister van van Binnenlandse Bestuur Bart Somers (Open Vld) benadrukt dan weer dat zo’n zomerschool ideaal is om ervoor te zorgen dat iedereen met gelijke kansen aan het nieuwe schooljaar kan beginnen. 
+“Onderwijs blijft de belangrijkste hefboom om iedereen de kans te geven om zichzelf te ontwikkelen en zelfredzaam te zijn in onze samenleving”, zegt hij.
+</p>
+</body>
+</html>
