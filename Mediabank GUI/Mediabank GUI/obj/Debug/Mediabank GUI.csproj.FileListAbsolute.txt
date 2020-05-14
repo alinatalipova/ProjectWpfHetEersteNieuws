@@ -12,3 +12,17 @@ C:\Users\hanan\source\repos\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank_GUI.
 C:\Users\hanan\source\repos\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.csproj.GenerateResource.cache
 C:\Users\hanan\source\repos\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.exe
 C:\Users\hanan\source\repos\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.pdb
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\bin\Debug\Mediabank GUI.exe.config
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\bin\Debug\Mediabank GUI.exe
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\bin\Debug\Mediabank GUI.pdb
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.csprojAssemblyReference.cache
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\MainWindow.g.cs
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\App.g.cs
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI_MarkupCompile.cache
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI_MarkupCompile.lref
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\MainWindow.baml
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.g.resources
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank_GUI.Properties.Resources.resources
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.csproj.GenerateResource.cache
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.exe
+C:\Users\Alina\Desktop\Source\ProjectWpfHetEersteNieuws\Mediabank GUI\Mediabank GUI\obj\Debug\Mediabank GUI.pdb

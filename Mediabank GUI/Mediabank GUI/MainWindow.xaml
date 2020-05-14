@@ -18,8 +18,6 @@
         <Label Content="Gepubliceerd" HorizontalAlignment="Left" Height="35" Margin="1166,203,0,0" VerticalAlignment="Top" Width="110"/>
         <Label Content="Lengte" HorizontalAlignment="Left" Height="26" Margin="560,203,0,0" VerticalAlignment="Top" Width="61"/>
         <ListBox x:Name="lbxArticles" HorizontalAlignment="Left"  Margin="40,100,0,0" VerticalAlignment="Top" Width="440" Height="900" SelectionChanged="LbxArticles_SelectionChanged" BorderBrush="#FF00356A">
-            <ListBoxItem Content="ListBoxItem"/>
-            <ListBoxItem Content="Nieuwe titel "/>
         </ListBox>
         <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click"/>
         <Button x:Name="btnErase" Content="Verwijderen" HorizontalAlignment="Left" Margin="40,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnErase_Click" />

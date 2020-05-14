@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Mediabank_GUI.Models;
 using Microsoft.Win32;
 
 
@@ -24,42 +26,50 @@ namespace Mediabank_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        //articles is een verzameling van objecten
+        BindingList<Article> articles = new BindingList<Article>();
+
         public MainWindow()
         {
             InitializeComponent();
+            lbxArticles.ItemsSource = articles;
+            Fakedata();
+
         }
 
-        //KLASSE DIE ARTIKEL VOORSTELT 
-        class Article
-        {
-            public string Title { get; set; }
-            public string ID { get; set; }
-            public string Author { get; set; }
-          
-        }
 
-       //DIT IS GEWOON EEN TEST OM DE KLASSES EN OBJECTEN TE PROBEREN  GEBRUIKEN 
-        private void ArticlesData () 
+
+        //DIT IS GEWOON EEN TEST OM DE KLASSES EN OBJECTEN TE PROBEREN  GEBRUIKEN 
+        private void Fakedata()
+
         {
+
             // object maken van deze classe
+
             Article art = new Article();
             //properties een waarde geven
             art.Title = "Vlaamse regering wil zomerscholen om achterstand weg te werken";
             art.ID = "00000001";
             art.Author = "CATHY GALLE";
+            articles.Add(art);
+
         }
 
         //Toevoegen van titel in listbox
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //toevoegen van titel in listbox
-            ListBoxItem titles = new ListBoxItem();
-            titles.Content = txtTitle.Text;
-            lbxArticles.Items.Add(titles);
-            txtTitle.Text = "";
+            Article newArticle = new Article();
+            newArticle.Title = txtTitle.Text;
+            newArticle.ID = txtId.Text;
+            newArticle.Author = txtWriter.Text;
+
+            articles.Add(newArticle);
+
         }
 
-      private void UpdateUI()
+        private void UpdateUI()
         {
             // als er een titel geselecteerd is in lbx dan staanuttons erase, publish, preview en modify enable
             if (lbxArticles.SelectedItem != null)
@@ -70,19 +80,24 @@ namespace Mediabank_GUI
                 btnPreview.IsEnabled = true;
                 btnmodify.IsEnabled = true;
             }
-            
-         }
+
+        }
 
         private void LbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateUI();
-            //titel is zichtbaar in textbox bij selectie
-            ListBoxItem titleSelection = (ListBoxItem)lbxArticles.SelectedItem;
-             txtTitle.Text = titleSelection.Content.ToString();
+            if (lbxArticles.SelectedItem != null)
+            {
+
+                UpdateUI();
+                //titel is zichtbaar in textbox , ID en auteur bij selectie van een listboxItem
+                Article selectedArticle = (Article)lbxArticles.SelectedItem;
+                updateDetailsView(selectedArticle.ID, selectedArticle.Title, selectedArticle.Author);
+            }
+
         }
 
         // foutmeldingen 
-       private void Foutmelding()
+        private void Foutmelding()
         {
             //alle velden moeten ingevuld worden 
             // titel mag max 50 karakters bevatten 
@@ -90,13 +105,21 @@ namespace Mediabank_GUI
             // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
         }
 
+        private void updateDetailsView(String txtIdParam, string txtTitleParam, string txtWriterParam)
+        {
+            txtId.Text = txtIdParam;
+            txtTitle.Text = txtTitleParam;
+            txtWriter.Text = txtWriterParam;
+        }
+
         //titel verwijderen uit listbox 
         private void btnErase_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem selectie = (ListBoxItem)lbxArticles.SelectedItem;
+            Article selectie = (Article)lbxArticles.SelectedItem;
             if (selectie != null)
             {
-                lbxArticles.Items.Remove(selectie);
+                articles.Remove(selectie);
+                updateDetailsView("", "", "");
             }
             UpdateUI();
         }
@@ -105,8 +128,8 @@ namespace Mediabank_GUI
         private void btnOpenfile_Click(object sender, RoutedEventArgs e)
         {
             //openfilediaolo
-           OpenFileDialog ofd = new OpenFileDialog();
-           ofd.ShowDialog();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
         }
     }
 }
