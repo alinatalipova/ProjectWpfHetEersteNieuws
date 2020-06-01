@@ -105,10 +105,19 @@ namespace Mediabank_GUI
 
         }
 
-        // foutmeldingen 
-        private void Foutmelding()
+       
+        private void ShowErrorifTextboxEmpty()
         {
             // alle velden moeten ingevuld worden 
+            if (string.IsNullOrWhiteSpace(txtId.Text)||
+                string.IsNullOrWhiteSpace(txtTitle.Text)||
+                string.IsNullOrWhiteSpace(txtWriter.Text)|| 
+                cbCategory.SelectedIndex == -1
+                )
+            {
+                lblError.Content = " Alle velden moeten ingevuld worden!";
+            }
+            
             // titel mag max 50 karakters bevatten 
             // max lengte van artikel is 500 woorden 
             // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
@@ -160,6 +169,13 @@ namespace Mediabank_GUI
             }
 
 
+        }
+
+        private void txbtext_KeyDown(object sender, KeyEventArgs e)
+        {
+            //string delen dor middel van split functie. de array dat je krijgt tellen ( met count? of lenghth)
+            //en dan heb je aantal woorden
+            // IF ALS ER MEER DAN 500 woorden dan errormessage 
         }
     }
 }

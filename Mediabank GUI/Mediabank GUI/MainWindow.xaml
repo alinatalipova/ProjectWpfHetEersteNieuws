@@ -25,7 +25,7 @@
         <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="220,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" />
         <Button x:Name="btnPublish" Content="publiceer" HorizontalAlignment="Left" Margin="310,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False"/>
 
-        <ComboBox HorizontalAlignment="Left" Margin="645,169,0,0" VerticalAlignment="Top" Width="214"  Height="26" BorderBrush="#FF00356A" Background="{x:Null}">
+        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="645,169,0,0" VerticalAlignment="Top" Width="214"  Height="26" BorderBrush="#FF00356A" Background="{x:Null}">
             <ComboBoxItem Content="Sport" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Binnenlandse zaken" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Buitenlandse zaken" HorizontalAlignment="Left" Width="118"/>
@@ -39,10 +39,10 @@
         <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="490,30,0,0" VerticalAlignment="Top" Height="45" Width="80"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="800,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A"/>
         <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1225,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A"/>
-        <TextBlock HorizontalAlignment="Left" Height="19" Margin="645,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" Background="White"/>
         <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="770,25,0,0" VerticalAlignment="Top" Width="440"/>
         <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1225,25,0,0" VerticalAlignment="Top" Width="145" Click="btnOpenfile_Click"/>
-        <TextBox x:Name="txbtext" HorizontalAlignment="Left" Height="718" Margin="645,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801"/>
+        <TextBox x:Name="txbtext" HorizontalAlignment="Left" Height="718" Margin="645,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" KeyDown="txbtext_KeyDown"/>
+        <Label x:Name="lblLenght" Content="Label" HorizontalAlignment="Left" Margin="645,209,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
