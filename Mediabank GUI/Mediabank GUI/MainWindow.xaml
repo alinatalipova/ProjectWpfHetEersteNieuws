@@ -19,9 +19,9 @@
         <Label Content="Lengte" HorizontalAlignment="Left" Height="26" Margin="560,203,0,0" VerticalAlignment="Top" Width="61"/>
         <ListBox x:Name="lbxArticles" HorizontalAlignment="Left"  Margin="40,100,0,0" VerticalAlignment="Top" Width="440" Height="900" SelectionChanged="LbxArticles_SelectionChanged" BorderBrush="#FF00356A">
         </ListBox>
-        <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="Button_Click"/>
+        <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="addArticlClicked"/>
         <Button x:Name="btnErase" Content="Verwijderen" HorizontalAlignment="Left" Margin="40,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnErase_Click" />
-        <Button x:Name="btnmodify" Content="Wijzigen" HorizontalAlignment="Left" Margin="130,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False"/>
+        <Button x:Name="btnmodify" Content="Wijzigen" HorizontalAlignment="Left" Margin="130,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnmodify_Click"/>
         <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="220,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" />
         <Button x:Name="btnPublish" Content="publiceer" HorizontalAlignment="Left" Margin="310,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False"/>
 
@@ -37,12 +37,12 @@
         <RadioButton x:Name="rbpublishYes" Content="Ja" HorizontalAlignment="Left" Margin="1314,211,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbPublicerenNee" Content="Nee" HorizontalAlignment="Left" Margin="1360,209,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="490,30,0,0" VerticalAlignment="Top" Height="45" Width="80"/>
-        <TextBlock x:Name="txtInhoud" HorizontalAlignment="Left" Height="690" Margin="560,310,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="960" Background="White"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="800,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A"/>
         <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1225,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A"/>
         <TextBlock HorizontalAlignment="Left" Height="19" Margin="645,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" Background="White"/>
         <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="770,25,0,0" VerticalAlignment="Top" Width="440"/>
         <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1225,25,0,0" VerticalAlignment="Top" Width="145" Click="btnOpenfile_Click"/>
+        <TextBox x:Name="txbtext" HorizontalAlignment="Left" Height="718" Margin="645,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801"/>
 
 
     </Grid>
