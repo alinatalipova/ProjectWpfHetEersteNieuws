@@ -32,8 +32,6 @@
             <ComboBoxItem Content="Showbizz" HorizontalAlignment="Left" Width="118" />
         </ComboBox>
         <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="595,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A"/>
-        <RadioButton x:Name="rbTauthorisationYes" Content="Ja" HorizontalAlignment="Left" Margin="1311,170,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rbAutorisationNo" Content="Nee" HorizontalAlignment="Left" Margin="1360,170,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbpublishYes" Content="Ja" HorizontalAlignment="Left" Margin="1314,211,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="rbPublicerenNee" Content="Nee" HorizontalAlignment="Left" Margin="1360,209,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="490,30,0,0" VerticalAlignment="Top" Height="45" Width="80"/>
@@ -43,6 +41,10 @@
         <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1225,25,0,0" VerticalAlignment="Top" Width="145" Click="btnOpenfile_Click"/>
         <TextBox x:Name="txbtext" HorizontalAlignment="Left" Height="718" Margin="645,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" KeyDown="txbtext_KeyDown"/>
         <Label x:Name="lblLenght" Content="Label" HorizontalAlignment="Left" Margin="645,209,0,0" VerticalAlignment="Top"/>
+        <StackPanel HorizontalAlignment="Left" Height="40" Margin="1301,164,0,0" VerticalAlignment="Top" Width="100">
+            <RadioButton x:Name="rbAutorisationNo" Content="Nee" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbTauthorisationYes" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </StackPanel>
 
 
     </Grid>
