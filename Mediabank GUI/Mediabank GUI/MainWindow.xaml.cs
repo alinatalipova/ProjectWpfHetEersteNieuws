@@ -46,7 +46,7 @@ namespace Mediabank_GUI
 
         }
 
-        private void addArticlClicked(object sender, RoutedEventArgs e)
+        private void AddArticlClicked(object sender, RoutedEventArgs e)
         {
             Article newArticle = new Article(); 
             
@@ -79,7 +79,7 @@ namespace Mediabank_GUI
 
 
         // titel verwijderen uit listbox 
-        private void btnErase_Click(object sender, RoutedEventArgs e)
+        private void BtnErase_Click(object sender, RoutedEventArgs e)
         {
             Article selectie = (Article)lbxArticles.SelectedItem;
             if (selectie != null)
@@ -90,7 +90,7 @@ namespace Mediabank_GUI
             UpdateUI();
         }
 
-        private void btnmodify_Click(object sender, RoutedEventArgs e)
+        private void Btnmodify_Click(object sender, RoutedEventArgs e)
         {
             if (lbxArticles.SelectedItem != null)
             // casten om een access te hebben aan the propreties van het object
@@ -116,7 +116,7 @@ namespace Mediabank_GUI
             }
         }
 
-        private void btnPublish_Click(object sender, RoutedEventArgs e)
+        private void BtnPublish_Click(object sender, RoutedEventArgs e)
         {
             if (lbxArticles.SelectedItem != null)
             {
@@ -129,8 +129,35 @@ namespace Mediabank_GUI
             }
         }
 
+        private void AddNewArticleClicked(object sender, RoutedEventArgs e)
+        {
+            ClearDetailView();
+            btnAdd_New_Article.Visibility = Visibility.Hidden;
+            btnAdd.Visibility = Visibility.Visible;
+            btnAdd_Cancel_New_Article.Visibility = Visibility.Visible;
+
+            btnErase.Visibility = Visibility.Hidden;
+            btnPublish.Visibility = Visibility.Hidden;
+            btnmodify.Visibility = Visibility.Hidden;
+            btnPreview.Visibility = Visibility.Hidden;
+        }
+
+        private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
+        {
+            btnAdd_New_Article.Visibility = Visibility.Visible;
+
+            btnErase.Visibility = Visibility.Visible;
+            btnPublish.Visibility = Visibility.Visible;
+            btnmodify.Visibility = Visibility.Visible;
+            btnPreview.Visibility = Visibility.Visible;
+
+            btnAdd.Visibility = Visibility.Hidden;
+            btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
+        }
+
+
         // file opzoeken en openen 
-        private void btnOpenfile_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenfile_Click(object sender, RoutedEventArgs e)
         {
             // openfilediaolo
             OpenFileDialog ofd = new OpenFileDialog();
@@ -222,32 +249,6 @@ namespace Mediabank_GUI
             rbAutorisationYes.IsChecked = null;
             rbAutorisationNo.IsChecked = null;
             cbxPublished.IsChecked = null;
-        }
-
-        private void AddNewArticleClicked(object sender, RoutedEventArgs e)
-        {
-            ClearDetailView();
-            btnAdd_New_Article.Visibility = Visibility.Hidden;
-            btnAdd.Visibility = Visibility.Visible;
-            btnAdd_Cancel_New_Article.Visibility = Visibility.Visible;
-
-            btnErase.Visibility = Visibility.Hidden;
-            btnPublish.Visibility = Visibility.Hidden;
-            btnmodify.Visibility = Visibility.Hidden;
-            btnPreview.Visibility = Visibility.Hidden;
-        }
-
-        private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
-        {
-            btnAdd_New_Article.Visibility = Visibility.Visible;
-
-            btnErase.Visibility = Visibility.Visible;
-            btnPublish.Visibility = Visibility.Visible;
-            btnmodify.Visibility = Visibility.Visible;
-            btnPreview.Visibility = Visibility.Visible;
-
-            btnAdd.Visibility = Visibility.Hidden;
-            btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
         }
     }
 }
