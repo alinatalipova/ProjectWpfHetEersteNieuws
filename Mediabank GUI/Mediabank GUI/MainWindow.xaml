@@ -8,43 +8,44 @@
         Title="MainWindow" Height="1132" Width="1609" Background="#FBB5C6D6">
     <Grid x:Name="rbPublishNo">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="527*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="ID" HorizontalAlignment="Left" Margin="560,105,0,0" VerticalAlignment="Top"   Width="30" Height="30"/>
-        <Label Content="Titel" HorizontalAlignment="Left" Height="30" Margin="750,105,0,0" VerticalAlignment="Top" Width="35"/>
-        <Label Content="Categorie" HorizontalAlignment="Left" Margin="560,169,0,0" VerticalAlignment="Top"/>
-        <Label Content="Auteur" HorizontalAlignment="Left" Height="29" Margin="1164,105,0,0" VerticalAlignment="Top" Width="46"/>
-        <Label Content="Authorisatie publicatie " HorizontalAlignment="Left" Height="30" Margin="1166,164,0,0" VerticalAlignment="Top" Width="110"/>
-        <Label Content="Gepubliceerd" HorizontalAlignment="Left" Height="35" Margin="1166,203,0,0" VerticalAlignment="Top" Width="110"/>
-        <Label Content="Lengte" HorizontalAlignment="Left" Height="26" Margin="560,203,0,0" VerticalAlignment="Top" Width="61"/>
-        <ListBox x:Name="lbxArticles" HorizontalAlignment="Left"  Margin="40,100,0,0" VerticalAlignment="Top" Width="440" Height="900" SelectionChanged="LbxArticles_SelectionChanged" BorderBrush="#FF00356A">
+        <Label Content="ID" HorizontalAlignment="Left" Margin="536.5,105,0,0" VerticalAlignment="Top"   Width="30" Height="30" Grid.Column="1"/>
+        <Label Content="Titel" HorizontalAlignment="Left" Height="30" Margin="726.5,105,0,0" VerticalAlignment="Top" Width="35" Grid.Column="1"/>
+        <Label Content="Categorie" HorizontalAlignment="Left" Margin="536.5,169,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Auteur" HorizontalAlignment="Left" Height="29" Margin="1140.5,105,0,0" VerticalAlignment="Top" Width="46" Grid.Column="1"/>
+        <Label Content="Authorisatie publicatie " HorizontalAlignment="Left" Height="30" Margin="1142.5,164,0,0" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
+        <Label Content="Lengte" HorizontalAlignment="Left" Height="26" Margin="536.5,203,0,0" VerticalAlignment="Top" Width="61" Grid.Column="1"/>
+        <ListBox x:Name="lbxArticles" HorizontalAlignment="Left"  Margin="16.5,100,0,0" VerticalAlignment="Top" Width="440" Height="900" SelectionChanged="LbxArticles_SelectionChanged" BorderBrush="#FF00356A" Grid.Column="1">
         </ListBox>
-        <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="400,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="addArticlClicked"/>
-        <Button x:Name="btnErase" Content="Verwijderen" HorizontalAlignment="Left" Margin="40,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnErase_Click" />
-        <Button x:Name="btnmodify" Content="Wijzigen" HorizontalAlignment="Left" Margin="130,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnmodify_Click"/>
-        <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="220,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" />
-        <Button x:Name="btnPublish" Content="publiceer" HorizontalAlignment="Left" Margin="310,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False"/>
+        <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="286,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="addArticlClicked" Grid.Column="1"/>
+        <Button x:Name="btnErase" Content="Verwijderen" HorizontalAlignment="Left" Margin="16.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnErase_Click" Grid.Column="1" />
+        <Button x:Name="btnmodify" Content="Wijzigen" HorizontalAlignment="Left" Margin="106.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnmodify_Click" Grid.Column="1"/>
+        <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="196.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Grid.Column="1" />
+        <Button x:Name="btnPublish" Content="publiceer" HorizontalAlignment="Left" Margin="286.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="btnPublish_Click" Grid.Column="1"/>
 
-        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="645,169,0,0" VerticalAlignment="Top" Width="214"  Height="26" BorderBrush="#FF00356A" Background="{x:Null}">
+        <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="621.5,169,0,0" VerticalAlignment="Top" Width="214"  Height="26" BorderBrush="#FF00356A" Background="{x:Null}" Grid.Column="1">
             <ComboBoxItem Content="Sport" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Binnenlandse zaken" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Buitenlandse zaken" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Showbizz" HorizontalAlignment="Left" Width="118" />
         </ComboBox>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="595,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A"/>
-        <RadioButton x:Name="rbpublishYes" Content="Ja" HorizontalAlignment="Left" Margin="1314,211,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rbPublicerenNee" Content="Nee" HorizontalAlignment="Left" Margin="1360,209,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="490,30,0,0" VerticalAlignment="Top" Height="45" Width="80"/>
-        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="800,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A"/>
-        <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1225,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A"/>
-        <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="770,25,0,0" VerticalAlignment="Top" Width="440"/>
-        <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1225,25,0,0" VerticalAlignment="Top" Width="145" Click="btnOpenfile_Click"/>
-        <TextBox x:Name="txbtext" HorizontalAlignment="Left" Height="718" Margin="645,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" KeyDown="txbtext_KeyDown"/>
-        <Label x:Name="lblLenght" Content="Label" HorizontalAlignment="Left" Margin="645,209,0,0" VerticalAlignment="Top"/>
-        <StackPanel HorizontalAlignment="Left" Height="40" Margin="1301,164,0,0" VerticalAlignment="Top" Width="100">
+        <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="571.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A" Grid.Column="1"/>
+        <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="466.5,30,0,0" VerticalAlignment="Top" Height="45" Width="80" Grid.Column="1"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="776.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A" Grid.Column="1"/>
+        <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1201.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A" Grid.Column="1"/>
+        <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="746.5,25,0,0" VerticalAlignment="Top" Width="440" Grid.Column="1"/>
+        <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1201.5,25,0,0" VerticalAlignment="Top" Width="145" Click="btnOpenfile_Click" Grid.Column="1"/>
+        <TextBox x:Name="txbTextArticle" HorizontalAlignment="Left" Height="718" Margin="621.5,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" KeyDown="txbtext_KeyDown" Grid.Column="1"/>
+        <Label x:Name="lblLenght" Content="Label" HorizontalAlignment="Left" Margin="621.5,209,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <StackPanel x:Name="authPubPanel" HorizontalAlignment="Left" Height="40" Margin="1277.5,164,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1">
             <RadioButton x:Name="rbAutorisationNo" Content="Nee" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbTauthorisationYes" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbAutorisationYes" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
+        <CheckBox x:Name="cbxPublished" Content="Gepubliceerd" HorizontalAlignment="Left" Margin="1277.5,209,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="1"/>
+        <Button x:Name="btnAdd_Cancel_New_Article" Content="Annuleer" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="CancelNewArticleClicked" Grid.Column="1"/>
+        <Button x:Name="btnAdd_New_Article" Content="Nieuw artikel" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="AddNewArticleClicked" Grid.Column="1"/>
 
 
     </Grid>
