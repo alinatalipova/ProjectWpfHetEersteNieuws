@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Mediabank_GUI.Models;
 using Microsoft.Win32;
 
@@ -9,7 +11,7 @@ namespace Mediabank_GUI
 {
     public partial class MainWindow : Window
     {
-
+         
         // articles is een verzameling van objecten
         // you can use a BindingList<T>, instead of your List<T>, to automatically recognize new items added. Your ShowData() method must be called once at startup.
         BindingList<Article> articles = new BindingList<Article>();
@@ -196,21 +198,95 @@ namespace Mediabank_GUI
 
 
         }
-        private void ShowErrorifTextboxEmpty()
+     
+        private string ShowError1ifTextboxEmpty()
         {
-            if (string.IsNullOrWhiteSpace(txtId.Text) ||
-                string.IsNullOrWhiteSpace(txtTitle.Text) ||
-                string.IsNullOrWhiteSpace(txtWriter.Text) ||
-                cbCategory.SelectedIndex == -1 ||
-                (rbAutorisationNo.IsChecked == false && rbAutorisationYes.IsChecked == false))
+            string errorMessage1;
+            if (rbAutorisationNo.IsChecked == false && rbAutorisationYes.IsChecked == false)
             {
-                lblError.Content = " Alle velden moeten ingevuld worden!";
+                LblPublicationRadiobox.Background = Brushes.Red;
+                errorMessage1 = " Alle velden moeten ingevuld worden!";
+            }
+            else
+            {
+                LblPublicationRadiobox.Background = Brushes.Transparent;
+                errorMessage1 = "";
             }
 
-            // titel mag max 50 karakters bevatten 
-            // max lengte van artikel is 500 woorden 
-            // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
-        }
+            //ID box wordt rood
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                    txtId.Background = Brushes.Red;
+                    errorMessage1 = " Alle velden moeten ingevuld worden!";
+            }
+            else
+            {
+              txtId.Background = Brushes.White;
+              errorMessage1 = "";
+            }
+                
+            //titelbox wordt rood
+               
+            if (string.IsNullOrWhiteSpace(txtTitle.Text))
+            {
+             txtTitle.Background = Brushes.Red;
+             errorMessage1 = " Alle velden moeten ingevuld worden!";
+            }
+            else
+                {
+                    txtTitle.Background = Brushes.White;
+                    errorMessage1 = "";
+                }
+                
+            //auteurbox word rood
+               
+            if (string.IsNullOrWhiteSpace(txtWriter.Text))
+                {
+                    txtWriter.Background = Brushes.Red;
+                    errorMessage1 = " Alle velden moeten ingevuld worden!";
+                }
+            else
+                {
+                    txtWriter.Background = Brushes.White;
+                    errorMessage1 = "";
+                }
+               
+            //combobox categorie wordt rood
+            if (cbCategory.SelectedIndex == -1)
+                {
+                    lblCategory.Background = Brushes.Red;
+                    errorMessage1 = " Alle velden moeten ingevuld worden!";
+                }
+            else
+                {
+                    lblCategory.Background = Brushes.Transparent;
+                    errorMessage1 = "";
+                }
+
+            return errorMessage1;
+            
+                // max lengte van artikel is 500 woorden 
+                // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
+            }
+
+        private string ShowError2MaxCharacters() 
+            {
+            string errorMessage2 ="";
+            int AmountOfCharInTitle = txtTitle.Text.Length;
+            if (AmountOfCharInTitle > 50)
+            {
+                errorMessage2 = "De titel mag niet meer dan 50 char bevatten! ";
+                txtTitle.Background = Brushes.Red;
+            }
+            else if (AmountOfCharInTitle < 50 && string.IsNullOrWhiteSpace(txtTitle.Text) == false )
+            {
+                errorMessage2 = "";
+                txtTitle.Background = Brushes.White;
+            }
+            return errorMessage2;
+            
+            //TO DO: titel mag niet toegevoegd worden als ze aan deze max char zitten 
+            }
 
         private void UpdateDetailsView(Article article)
         {
@@ -250,5 +326,11 @@ namespace Mediabank_GUI
             rbAutorisationNo.IsChecked = null;
             cbxPublished.IsChecked = null;
         }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+
+            lblError.Content = ShowError1ifTextboxEmpty() + Environment.NewLine + ShowError2MaxCharacters();
+        }            
     }
 }

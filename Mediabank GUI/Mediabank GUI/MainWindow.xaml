@@ -13,9 +13,9 @@
         </Grid.ColumnDefinitions>
         <Label Content="ID" HorizontalAlignment="Left" Margin="536.5,105,0,0" VerticalAlignment="Top"   Width="30" Height="30" Grid.Column="1"/>
         <Label Content="Titel" HorizontalAlignment="Left" Height="30" Margin="726.5,105,0,0" VerticalAlignment="Top" Width="35" Grid.Column="1"/>
-        <Label Content="Categorie" HorizontalAlignment="Left" Margin="536.5,169,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lblCategory" Content="Categorie" HorizontalAlignment="Left" Margin="536.5,169,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <Label Content="Auteur" HorizontalAlignment="Left" Height="29" Margin="1140.5,105,0,0" VerticalAlignment="Top" Width="46" Grid.Column="1"/>
-        <Label Content="Authorisatie publicatie " HorizontalAlignment="Left" Height="30" Margin="1142.5,164,0,0" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
+        <Label x:Name="LblPublicationRadiobox" Content="Authorisatie publicatie " HorizontalAlignment="Left" Height="30" Margin="1142.5,164,0,0" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
         <Label Content="Lengte" HorizontalAlignment="Left" Height="26" Margin="536.5,203,0,0" VerticalAlignment="Top" Width="61" Grid.Column="1"/>
         <ListBox x:Name="lbxArticles" HorizontalAlignment="Left"  Margin="16.5,100,0,0" VerticalAlignment="Top" Width="440" Height="900" SelectionChanged="LbxArticles_SelectionChanged" BorderBrush="#FF00356A" Grid.Column="1">
         </ListBox>
@@ -32,7 +32,7 @@
             <ComboBoxItem Content="Showbizz" HorizontalAlignment="Left" Width="118" />
         </ComboBox>
         <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="571.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A" Grid.Column="1"/>
-        <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="466.5,30,0,0" VerticalAlignment="Top" Height="45" Width="80" Grid.Column="1"/>
+        <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="466,30,0,0" VerticalAlignment="Top" Height="70" Width="276" Grid.Column="1"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="776.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A" Grid.Column="1"/>
         <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1201.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A" Grid.Column="1"/>
         <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="746.5,25,0,0" VerticalAlignment="Top" Width="440" Grid.Column="1"/>
@@ -46,6 +46,7 @@
         <CheckBox x:Name="cbxPublished" Content="Gepubliceerd" HorizontalAlignment="Left" Margin="1277.5,209,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="1"/>
         <Button x:Name="btnAdd_Cancel_New_Article" Content="Annuleer" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="CancelNewArticleClicked" Grid.Column="1"/>
         <Button x:Name="btnAdd_New_Article" Content="Nieuw artikel" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="AddNewArticleClicked" Grid.Column="1"/>
+        <Button x:Name="btnTest" Content="Test" Grid.Column="1" HorizontalAlignment="Left" Margin="466,282,0,0" VerticalAlignment="Top" Width="76" Click="btnTest_Click"/>
 
 
     </Grid>
