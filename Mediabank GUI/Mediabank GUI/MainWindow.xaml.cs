@@ -183,12 +183,8 @@ namespace Mediabank_GUI
             ofd.ShowDialog();
         }
 
-        private void txbtext_KeyDown(object sender, KeyEventArgs e)
-        {
-            //string delen dor middel van split functie. de array dat je krijgt tellen ( met count? of lenghth)
-            //en dan heb je aantal woorden
-            // IF ALS ER MEER DAN 500 woorden dan errormessage 
-        }
+        
+        
         private void LbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbxArticles.SelectedItem != null)
