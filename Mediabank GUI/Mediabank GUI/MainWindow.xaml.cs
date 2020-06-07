@@ -69,7 +69,6 @@ namespace Mediabank_GUI
             // we voegen een geinitiaaliseerde object aan onze lijst articles
             articles.Add(newArticle);
 
-
             btnErase.Visibility = Visibility.Visible;
             btnPublish.Visibility = Visibility.Visible;
             btnmodify.Visibility = Visibility.Visible;
@@ -116,6 +115,9 @@ namespace Mediabank_GUI
                 lbxArticles.ItemsSource = null;
                 lbxArticles.ItemsSource = articles;
             }
+            //ErrorMessage wordt getoond
+            ErrorBackgroundColor();
+            lblError.Content = ErrorText();
         }
 
         private void BtnPublish_Click(object sender, RoutedEventArgs e)
@@ -142,6 +144,10 @@ namespace Mediabank_GUI
             btnPublish.Visibility = Visibility.Hidden;
             btnmodify.Visibility = Visibility.Hidden;
             btnPreview.Visibility = Visibility.Hidden;
+
+            //ErrorMessage wordt getoond
+            ErrorBackgroundColor();
+            lblError.Content = ErrorText();
         }
 
         private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
@@ -193,100 +199,40 @@ namespace Mediabank_GUI
                 btnPublish.IsEnabled = true;
                 btnPreview.IsEnabled = true;
                 btnmodify.IsEnabled = true;
-
-            }
-
+            }   
 
         }
      
-        private string ShowError1ifTextboxEmpty()
+        private void ErrorBackgroundColor()
         {
-            string errorMessage1;
-            if (rbAutorisationNo.IsChecked == false && rbAutorisationYes.IsChecked == false)
-            {
-                LblPublicationRadiobox.Background = Brushes.Red;
-                errorMessage1 = " Alle velden moeten ingevuld worden!";
-            }
-            else
-            {
-                LblPublicationRadiobox.Background = Brushes.Transparent;
-                errorMessage1 = "";
-            }
-
-            //ID box wordt rood
-            if (string.IsNullOrWhiteSpace(txtId.Text))
-            {
-                    txtId.Background = Brushes.Red;
-                    errorMessage1 = " Alle velden moeten ingevuld worden!";
-            }
-            else
-            {
-              txtId.Background = Brushes.White;
-              errorMessage1 = "";
-            }
-                
-            //titelbox wordt rood
-               
-            if (string.IsNullOrWhiteSpace(txtTitle.Text))
-            {
-             txtTitle.Background = Brushes.Red;
-             errorMessage1 = " Alle velden moeten ingevuld worden!";
-            }
-            else
-                {
-                    txtTitle.Background = Brushes.White;
-                    errorMessage1 = "";
-                }
-                
-            //auteurbox word rood
-               
-            if (string.IsNullOrWhiteSpace(txtWriter.Text))
-                {
-                    txtWriter.Background = Brushes.Red;
-                    errorMessage1 = " Alle velden moeten ingevuld worden!";
-                }
-            else
-                {
-                    txtWriter.Background = Brushes.White;
-                    errorMessage1 = "";
-                }
-               
-            //combobox categorie wordt rood
-            if (cbCategory.SelectedIndex == -1)
-                {
-                    lblCategory.Background = Brushes.Red;
-                    errorMessage1 = " Alle velden moeten ingevuld worden!";
-                }
-            else
-                {
-                    lblCategory.Background = Brushes.Transparent;
-                    errorMessage1 = "";
-                }
-
-            return errorMessage1;
-            
-                // max lengte van artikel is 500 woorden 
-                // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
-            }
-
-        private string ShowError2MaxCharacters() 
-            {
-            string errorMessage2 ="";
             int AmountOfCharInTitle = txtTitle.Text.Length;
+            _ = string.IsNullOrEmpty(txtTitle.Text) || AmountOfCharInTitle > 50 ? txtTitle.Background = Brushes.Red : txtTitle.Background = Brushes.White;
+            _ = string.IsNullOrEmpty(txtId.Text) ? txtId.Background = Brushes.Red : txtId.Background = Brushes.White;
+            _ = string.IsNullOrEmpty(txtWriter.Text) ? txtWriter.Background = Brushes.Red : txtWriter.Background = Brushes.White;
+
+        }
+
+        private string ErrorText()
+        {
+            int AmountOfCharInTitle = txtTitle.Text.Length;
+            string errormessage = "";
+            if (string.IsNullOrEmpty(txtId.Text) ||
+                string.IsNullOrEmpty(txtTitle.Text) ||
+                string.IsNullOrEmpty(txtWriter.Text))
+            {
+                errormessage += "Vul alle velden in!" + Environment.NewLine;
+            }
             if (AmountOfCharInTitle > 50)
             {
-                errorMessage2 = "De titel mag niet meer dan 50 char bevatten! ";
-                txtTitle.Background = Brushes.Red;
+                errormessage += " De titel mag niet meer dan 50 characters bevatten." + Environment.NewLine;
             }
-            else if (AmountOfCharInTitle < 50 && string.IsNullOrWhiteSpace(txtTitle.Text) == false )
-            {
-                errorMessage2 = "";
-                txtTitle.Background = Brushes.White;
-            }
-            return errorMessage2;
-            
-            //TO DO: titel mag niet toegevoegd worden als ze aan deze max char zitten 
-            }
+
+            return errormessage;
+            // max lengte van artikel is 500 woorden 
+            // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
+            //mag alleen cijfers invullen in ID
+        }
+
 
         private void UpdateDetailsView(Article article)
         {
@@ -330,7 +276,9 @@ namespace Mediabank_GUI
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
 
-            lblError.Content = ShowError1ifTextboxEmpty() + Environment.NewLine + ShowError2MaxCharacters();
+            //ErrorMessage wordt getoond
+            ErrorBackgroundColor();
+            lblError.Content = ErrorText();
         }            
     }
 }
