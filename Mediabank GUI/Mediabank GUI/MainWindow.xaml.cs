@@ -26,6 +26,7 @@ namespace Mediabank_GUI
             btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
             btnAdd_New_Article.Visibility = Visibility.Visible;
 
+
         }
 
 
