@@ -37,7 +37,7 @@
         <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1201.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A" Grid.Column="1"/>
         <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="746.5,25,0,0" VerticalAlignment="Top" Width="440" Grid.Column="1"/>
         <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1201.5,25,0,0" VerticalAlignment="Top" Width="145" Click="BtnOpenfile_Click" Grid.Column="1"/>
-        <TextBox x:Name="txbTextArticle" HorizontalAlignment="Left" Height="718" Margin="621.5,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" KeyDown="txbtext_KeyDown" Grid.Column="1"/>
+        <TextBox x:Name="txbTextArticle" HorizontalAlignment="Left" Height="718" Margin="621.5,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" Grid.Column="1" KeyUp="OnKeyUpTextArticle"/>
         <Label x:Name="lblLenght" Content="Label" HorizontalAlignment="Left" Margin="621.5,209,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <StackPanel x:Name="authPubPanel" HorizontalAlignment="Left" Height="40" Margin="1277.5,164,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1">
             <RadioButton x:Name="rbAutorisationNo" Content="Nee" HorizontalAlignment="Left" VerticalAlignment="Top"/>

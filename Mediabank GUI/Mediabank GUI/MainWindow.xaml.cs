@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,7 +13,7 @@ namespace Mediabank_GUI
 {
     public partial class MainWindow : Window
     {
-         
+
         // articles is een verzameling van objecten
         // you can use a BindingList<T>, instead of your List<T>, to automatically recognize new items added. Your ShowData() method must be called once at startup.
         BindingList<Article> articles = new BindingList<Article>();
@@ -51,32 +53,36 @@ namespace Mediabank_GUI
 
         private void AddArticlClicked(object sender, RoutedEventArgs e)
         {
-            Article newArticle = new Article(); 
-            
-            newArticle.Title = txtTitle.Text;
-            newArticle.ID = txtId.Text;
-            newArticle.Author = txtWriter.Text;
-            newArticle.Content = txbTextArticle.Text;
-            
-            if (rbAutorisationYes.IsChecked == true)
+            if (ErrorBackgroundColor())
             {
-                newArticle.AuthToPublish = true;
+                Article newArticle = new Article();
+
+                newArticle.Title = txtTitle.Text;
+                newArticle.ID = txtId.Text;
+                newArticle.Author = txtWriter.Text;
+                newArticle.Content = txbTextArticle.Text;
+
+                if (rbAutorisationYes.IsChecked == true)
+                {
+                    newArticle.AuthToPublish = true;
+                }
+                else
+                {
+                    newArticle.AuthToPublish = false;
+                }
+
+                // we voegen een geinitiaaliseerde object aan onze lijst articles
+                articles.Add(newArticle);
+
+                btnErase.Visibility = Visibility.Visible;
+                btnPublish.Visibility = Visibility.Visible;
+                btnmodify.Visibility = Visibility.Visible;
+                btnPreview.Visibility = Visibility.Visible;
+                btnAdd_New_Article.Visibility = Visibility.Visible;
+
+                btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
             }
-            else
-            {
-                newArticle.AuthToPublish = false;
-            }
 
-            // we voegen een geinitiaaliseerde object aan onze lijst articles
-            articles.Add(newArticle);
-
-            btnErase.Visibility = Visibility.Visible;
-            btnPublish.Visibility = Visibility.Visible;
-            btnmodify.Visibility = Visibility.Visible;
-            btnPreview.Visibility = Visibility.Visible;
-            btnAdd_New_Article.Visibility = Visibility.Visible;
-
-            btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
         }
 
 
@@ -94,7 +100,7 @@ namespace Mediabank_GUI
 
         private void Btnmodify_Click(object sender, RoutedEventArgs e)
         {
-            if (lbxArticles.SelectedItem != null)
+            if (lbxArticles.SelectedItem != null && ErrorBackgroundColor())
             // casten om een access te hebben aan the propreties van het object
             {
                 Article selectedArticel = (Article)lbxArticles.SelectedItem;
@@ -117,8 +123,11 @@ namespace Mediabank_GUI
                 lbxArticles.ItemsSource = articles;
             }
             //ErrorMessage wordt getoond
-            ErrorBackgroundColor();
-            lblError.Content = ErrorText();
+            else
+            {
+                lblError.Content = ErrorText();
+            }
+
         }
 
         private void BtnPublish_Click(object sender, RoutedEventArgs e)
@@ -136,6 +145,7 @@ namespace Mediabank_GUI
 
         private void AddNewArticleClicked(object sender, RoutedEventArgs e)
         {
+
             ClearDetailView();
             btnAdd_New_Article.Visibility = Visibility.Hidden;
             btnAdd.Visibility = Visibility.Visible;
@@ -149,8 +159,8 @@ namespace Mediabank_GUI
             //ErrorMessage wordt getoond
             ErrorBackgroundColor();
             lblError.Content = ErrorText();
-        }
 
+        }
         private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
         {
             btnAdd_New_Article.Visibility = Visibility.Visible;
@@ -200,22 +210,59 @@ namespace Mediabank_GUI
                 btnPublish.IsEnabled = true;
                 btnPreview.IsEnabled = true;
                 btnmodify.IsEnabled = true;
-            }   
+            }
 
         }
-     
-        private void ErrorBackgroundColor()
+
+        private bool ErrorBackgroundColor()
         {
             int AmountOfCharInTitle = txtTitle.Text.Length;
-            _ = string.IsNullOrEmpty(txtTitle.Text) || AmountOfCharInTitle > 50 ? txtTitle.Background = Brushes.Red : txtTitle.Background = Brushes.White;
-            _ = string.IsNullOrEmpty(txtId.Text) ? txtId.Background = Brushes.Red : txtId.Background = Brushes.White;
-            _ = string.IsNullOrEmpty(txtWriter.Text) ? txtWriter.Background = Brushes.Red : txtWriter.Background = Brushes.White;
+            bool checkContentTitle = true;
+            bool checkContentId = true;
+            bool checkContentWriter = true;
+
+            if (string.IsNullOrEmpty(txtTitle.Text) || AmountOfCharInTitle > 50)
+            {
+                txtTitle.Background = Brushes.Red;
+                checkContentTitle = false; ;
+            }
+            else
+            {
+                txtTitle.Background = Brushes.White;
+                checkContentTitle = true;
+            }
+            if (string.IsNullOrEmpty(txtId.Text))
+            {
+                txtId.Background = Brushes.Red;
+                checkContentId = false;
+            }
+            else
+            {
+                txtId.Background = Brushes.White;
+                checkContentId = true;
+            }
+            if (string.IsNullOrEmpty(txtWriter.Text))
+            {
+                txtWriter.Background = Brushes.Red;
+                checkContentWriter = false;
+            }
+            else
+            {
+                txtWriter.Background = Brushes.White;
+                checkContentWriter = true;
+            }
+
+            if (checkContentId == true && checkContentTitle == true && checkContentWriter == true)
+            {
+                return true;
+            }
+            return false;
 
         }
 
         private string ErrorText()
         {
-            int AmountOfCharInTitle = txtTitle.Text.Length;
+           
             string errormessage = "";
             if (string.IsNullOrEmpty(txtId.Text) ||
                 string.IsNullOrEmpty(txtTitle.Text) ||
@@ -223,7 +270,7 @@ namespace Mediabank_GUI
             {
                 errormessage += "Vul alle velden in!" + Environment.NewLine;
             }
-            if (AmountOfCharInTitle > 50)
+            if (txtTitle.Text.Length > 50)
             {
                 errormessage += " De titel mag niet meer dan 50 characters bevatten." + Environment.NewLine;
             }
@@ -280,6 +327,20 @@ namespace Mediabank_GUI
             //ErrorMessage wordt getoond
             ErrorBackgroundColor();
             lblError.Content = ErrorText();
-        }            
+        }
+
+        private void OnKeyUpTextArticle(object sender, KeyEventArgs e)
+        {
+            List<string> A = new List<string>();
+            // trimEnd : om de spatie niet mee te tellen , ToList () : om array van strings naar lijs te converteren ( van split ) 
+            A = txbTextArticle.Text.TrimEnd(' ').Split(' ').ToList();
+            if (A.Count >= 500)
+            {
+                lblError.Content = "Mag niet langer zijn dan 500 woorden ";
+            }
+
+        }
+
+       
     }
 }
