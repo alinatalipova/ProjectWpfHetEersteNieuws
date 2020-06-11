@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,7 @@ namespace Mediabank_GUI
             btnAdd.Visibility = Visibility.Hidden;
             btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
             btnAdd_New_Article.Visibility = Visibility.Visible;
-
+            lbxArticles.SelectionMode = SelectionMode.Multiple; // activeren van meerdere selecties , selecties van meerde items
 
         }
 
@@ -132,15 +133,24 @@ namespace Mediabank_GUI
 
         private void BtnPublish_Click(object sender, RoutedEventArgs e)
         {
-            if (lbxArticles.SelectedItem != null)
+            foreach (Article selectedItem in lbxArticles.SelectedItems)
             {
-                Article selectedArticel = (Article)lbxArticles.SelectedItem;
-                if (selectedArticel.AuthToPublish == true)
+                if (selectedItem != null)
                 {
-                    selectedArticel.Published = true;
-                    UpdateDetailsView(selectedArticel);
+                    if (selectedItem.AuthToPublish == true)
+                    {
+                        selectedItem.Published = true;
+                        using (StreamWriter writer = new StreamWriter("article1.txt"))
+                        {
+                            writer.Write(selectedItem.Title);
+                            writer.WriteLine(selectedItem.Content);
+                            writer.WriteLine(selectedItem.Author);
+                        }
+                        UpdateDetailsView(selectedItem);
+                    }
                 }
             }
+            
         }
 
         private void AddNewArticleClicked(object sender, RoutedEventArgs e)
