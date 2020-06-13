@@ -14,7 +14,7 @@ namespace Mediabank_GUI.Models
         public string Author { get; set; }
         public string Content { get; set; }
         public bool Published { get; set; }
-        public bool AuthToPublish { get; set; }
+       
         public override string ToString()
         {
             return Title;

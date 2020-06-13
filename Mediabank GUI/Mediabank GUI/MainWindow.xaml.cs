@@ -14,17 +14,17 @@ namespace Mediabank_GUI
 {
     public partial class MainWindow : Window
     {
-
+        Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
         // articles is een verzameling van objecten
         // you can use a BindingList<T>, instead of your List<T>, to automatically recognize new items added. Your ShowData() method must be called once at startup.
         BindingList<Article> articles = new BindingList<Article>();
+        public List<Article> ToPublishArticles = new List<Article>();
 
         //class <Type / classe > naam = new class<type>();
         public MainWindow()
         {
             InitializeComponent();
             lbxArticles.ItemsSource = articles;
-            Testdata();
             btnAdd.Visibility = Visibility.Hidden;
             btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
             btnAdd_New_Article.Visibility = Visibility.Visible;
@@ -32,29 +32,9 @@ namespace Mediabank_GUI
 
         }
 
-
-
-        //DIT IS GEWOON EEN TEST OM DE KLASSES EN OBJECTEN TE PROBEREN  GEBRUIKEN 
-        private void Testdata()
-        // fonction
-
-        {
-
-            // object maken van deze classe
-            Article art = new Article();
-            // properties een waarde geven
-            art.Title = "Vlaamse regering wil zomerscholen om achterstand weg te werken";
-            art.ID = "00000001";
-            art.Author = "CATHY GALLE";
-            art.Content = "";
-            articles.Add(art);
-
-
-        }
-
         private void AddArticlClicked(object sender, RoutedEventArgs e)
         {
-            if (ErrorBackgroundColor())
+            if (GetErrorInfoAndSetCounter())
             {
                 Article newArticle = new Article();
 
@@ -65,11 +45,7 @@ namespace Mediabank_GUI
 
                 if (rbAutorisationYes.IsChecked == true)
                 {
-                    newArticle.AuthToPublish = true;
-                }
-                else
-                {
-                    newArticle.AuthToPublish = false;
+                    ToPublishArticles.Add(newArticle);
                 }
 
                 // we voegen een geinitiaaliseerde object aan onze lijst articles
@@ -101,24 +77,27 @@ namespace Mediabank_GUI
 
         private void Btnmodify_Click(object sender, RoutedEventArgs e)
         {
-            if (lbxArticles.SelectedItem != null && ErrorBackgroundColor())
+            if (lbxArticles.SelectedItem != null && GetErrorInfoAndSetCounter())
             // casten om een access te hebben aan the propreties van het object
             {
-                Article selectedArticel = (Article)lbxArticles.SelectedItem;
+                Article selectedArticel = (Article)lbxArticles.SelectedItem; // we casten
+
+
+
+                if (rbAutorisationYes.IsChecked == true)
+                {
+
+                    ToPublishArticles.Add(selectedArticel);
+                }
+                else
+                {
+                    ToPublishArticles.Remove(selectedArticel);
+                }
 
                 selectedArticel.Title = txtTitle.Text;
                 selectedArticel.ID = txtId.Text;
                 selectedArticel.Author = txtWriter.Text;
-
-                if (rbAutorisationYes.IsChecked == true)
-                {
-                    selectedArticel.AuthToPublish = true;
-                }
-                else
-                {
-                    selectedArticel.AuthToPublish = false;
-                }
-
+                selectedArticel.Content = txbTextArticle.Text;
 
                 lbxArticles.ItemsSource = null;
                 lbxArticles.ItemsSource = articles;
@@ -126,31 +105,32 @@ namespace Mediabank_GUI
             //ErrorMessage wordt getoond
             else
             {
-                lblError.Content = ErrorText();
+                GetErrorInfoAndSetCounter();
             }
 
         }
 
         private void BtnPublish_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Article selectedItem in lbxArticles.SelectedItems)
-            {
-                if (selectedItem != null)
+
+            using (StreamWriter writer = new StreamWriter("article1.txt"))
+
+                foreach (Article selectedItem in ToPublishArticles)
                 {
-                    if (selectedItem.AuthToPublish == true)
+
+                    selectedItem.Published = true;
+
                     {
-                        selectedItem.Published = true;
-                        using (StreamWriter writer = new StreamWriter("article1.txt"))
-                        {
-                            writer.Write(selectedItem.Title);
-                            writer.WriteLine(selectedItem.Content);
-                            writer.WriteLine(selectedItem.Author);
-                        }
-                        UpdateDetailsView(selectedItem);
+                        writer.Write(selectedItem.Title);
+                        writer.WriteLine(selectedItem.Content);
+                        writer.WriteLine(selectedItem.Author);
+
                     }
+                    UpdateDetailsView(selectedItem);
+
+
                 }
-            }
-            
+
         }
 
         private void AddNewArticleClicked(object sender, RoutedEventArgs e)
@@ -167,10 +147,11 @@ namespace Mediabank_GUI
             btnPreview.Visibility = Visibility.Hidden;
 
             //ErrorMessage wordt getoond
-            ErrorBackgroundColor();
-            lblError.Content = ErrorText();
+            GetErrorInfoAndSetCounter();
 
         }
+
+      
         private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
         {
             btnAdd_New_Article.Visibility = Visibility.Visible;
@@ -189,12 +170,30 @@ namespace Mediabank_GUI
         private void BtnOpenfile_Click(object sender, RoutedEventArgs e)
         {
             // openfilediaolo
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
+            // OpenFileDialog ofd = new OpenFileDialog();
+            // ofd.ShowDialog();
+
+
+            // Create OpenFileDialog
+            // Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Launch OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = openFileDlg.ShowDialog();
+            // Get the selected file name and display in a TextBox.
+            // Load content of file in a TextBlock
+            if (result == true)
+            {
+                openFileDlg.Filter = "All files (*.*)|*.*";
+                combobox1.Text = openFileDlg.FileName;
+                txbTextArticle.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
+            }
+
+            GetErrorInfoAndSetCounter();
+
         }
 
-        
-        
+
+
         private void LbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbxArticles.SelectedItem != null)
@@ -217,74 +216,92 @@ namespace Mediabank_GUI
                 btnPreview.IsEnabled = true;
                 btnmodify.IsEnabled = true;
             }
-
+            if (rbAutorisationNo.IsChecked == true)
+            {
+                btnPublish.IsEnabled = false;
+            }
         }
 
-        private bool ErrorBackgroundColor()
+        
+
+        private bool GetErrorInfoAndSetCounter()//toont de error tekst +kijken dat alle velden in orde zijn
         {
             int AmountOfCharInTitle = txtTitle.Text.Length;
             bool checkContentTitle = true;
             bool checkContentId = true;
             bool checkContentWriter = true;
-
-            if (string.IsNullOrEmpty(txtTitle.Text) || AmountOfCharInTitle > 50)
-            {
-                txtTitle.Background = Brushes.Red;
-                checkContentTitle = false; ;
-            }
-            else
-            {
-                txtTitle.Background = Brushes.White;
-                checkContentTitle = true;
-            }
-            if (string.IsNullOrEmpty(txtId.Text))
-            {
-                txtId.Background = Brushes.Red;
-                checkContentId = false;
-            }
-            else
-            {
-                txtId.Background = Brushes.White;
-                checkContentId = true;
-            }
-            if (string.IsNullOrEmpty(txtWriter.Text))
-            {
-                txtWriter.Background = Brushes.Red;
-                checkContentWriter = false;
-            }
-            else
-            {
-                txtWriter.Background = Brushes.White;
-                checkContentWriter = true;
-            }
-
-            if (checkContentId == true && checkContentTitle == true && checkContentWriter == true)
-            {
-                return true;
-            }
-            return false;
-
-        }
-
-        private string ErrorText()
-        {
-           
+            bool checkContentCategory = true;
+            bool checkContentAutorisation = true;
+            bool checkContentLenght = true;
             string errormessage = "";
-            if (string.IsNullOrEmpty(txtId.Text) ||
-                string.IsNullOrEmpty(txtTitle.Text) ||
-                string.IsNullOrEmpty(txtWriter.Text))
+            if (string.IsNullOrEmpty(txtTitle.Text) )
             {
-                errormessage += "Vul alle velden in!" + Environment.NewLine;
+                checkContentTitle = false;
+                errormessage += "Vul een titel in!" + Environment.NewLine;
             }
             if (txtTitle.Text.Length > 50)
             {
                 errormessage += " De titel mag niet meer dan 50 characters bevatten." + Environment.NewLine;
+                checkContentTitle = false;
             }
 
-            return errormessage;
-            // max lengte van artikel is 500 woorden 
+            if (string.IsNullOrEmpty(txtId.Text))
+            {
+                
+                checkContentId = false;
+                errormessage += "Vul een ID nummer in!" + Environment.NewLine;
+            }
+            
+            if (string.IsNullOrEmpty(txtWriter.Text))
+            {
+                
+                checkContentWriter = false;
+                errormessage += "Vul de autheur in!" + Environment.NewLine;
+            }
+            
+           
+            
+            if (rbAutorisationNo.IsChecked==false &&rbAutorisationYes.IsChecked ==false)
+            {
+                checkContentAutorisation = false;
+                errormessage += "Authorisatie tot publicatie moet ingevuld worden" + Environment.NewLine;
+            }
+            
+            if (cbCategory.SelectedIndex== -1)
+            {
+                checkContentCategory = false;
+                errormessage += "geef een catefgorie aan!" + Environment.NewLine;
+            }
+ 
+
+            List<string> articleText = new List<string>();
+            // trimEnd : om de spatie niet mee te tellen , ToList () : om array van strings naar lijs te converteren ( van split ) 
+            
+            articleText = txbTextArticle.Text.TrimEnd(' ').Split(' ').ToList();
+            if (articleText.Count >= 500)
+            {
+               errormessage += "Mag niet langer zijn dan 500 woorden " + Environment.NewLine;
+               checkContentLenght = false;
+            }
+            
+            lblLenght.Content = articleText.Count;
+
+            lblError.Content = errormessage;
+
             // als publicatie ja is dan mag "mag gepubliceerd" niet nee zijn
             //mag alleen cijfers invullen in ID
+
+
+            if (checkContentId &&
+                checkContentTitle &&
+                checkContentWriter &&
+                checkContentCategory &&
+                checkContentAutorisation &&
+                checkContentLenght)
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -295,17 +312,7 @@ namespace Mediabank_GUI
             txtWriter.Text = article.Author;
             txbTextArticle.Text = article.Content;
 
-            if (article.AuthToPublish == true)
-            {
-                rbAutorisationYes.IsChecked = true;
-                rbAutorisationNo.IsChecked = false;
 
-            }
-            else
-            {
-                rbAutorisationYes.IsChecked = false;
-                rbAutorisationNo.IsChecked = true;
-            }
             if (article.Published)
             {
                 cbxPublished.IsChecked = true;
@@ -316,37 +323,35 @@ namespace Mediabank_GUI
             }
         }
 
-        private void ClearDetailView()
+        private void ClearDetailView()//bij het toevoegen van nieuwe artikel worden alle velden eerst leeg gemaakt
         {
             txtId.Text = "";
             txtTitle.Text = "";
             txtWriter.Text = "";
             txbTextArticle.Text = "";
-            rbAutorisationYes.IsChecked = null;
-            rbAutorisationNo.IsChecked = null;
-            cbxPublished.IsChecked = null;
+            rbAutorisationYes.IsChecked = false;
+            rbAutorisationNo.IsChecked = false;
+            cbxPublished.IsChecked = false;
+            cbCategory.SelectedIndex = -1;
+            lblLenght.Content = "";
         }
 
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
-
+            
             //ErrorMessage wordt getoond
-            ErrorBackgroundColor();
-            lblError.Content = ErrorText();
+            //lblError.Content = GetErrorInfoAndSetCounter().Message;
         }
 
-        private void OnKeyUpTextArticle(object sender, KeyEventArgs e)
+ 
+        private void OnKeyUpTextArticle(object sender, KeyEventArgs e)//wanneer je key up gaat dan wodt lengte getelt
         {
-            List<string> A = new List<string>();
-            // trimEnd : om de spatie niet mee te tellen , ToList () : om array van strings naar lijs te converteren ( van split ) 
-            A = txbTextArticle.Text.TrimEnd(' ').Split(' ').ToList();
-            if (A.Count >= 500)
-            {
-                lblError.Content = "Mag niet langer zijn dan 500 woorden ";
-            }
-
+            GetErrorInfoAndSetCounter();
         }
 
-       
+        private void cbxPublished_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
