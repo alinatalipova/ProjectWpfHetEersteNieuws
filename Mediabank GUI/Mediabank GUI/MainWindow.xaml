@@ -21,7 +21,7 @@
         <Button x:Name="btnAdd" Content="Toevoegen" HorizontalAlignment="Left" Margin="286,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="AddArticlClicked" Grid.Column="1"/>
         <Button x:Name="btnErase" Content="Verwijderen" HorizontalAlignment="Left" Margin="16.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="BtnErase_Click" Grid.Column="1" />
         <Button x:Name="btnmodify" Content="Wijzigen" HorizontalAlignment="Left" Margin="106.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="Btnmodify_Click" Grid.Column="1"/>
-        <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="196.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Grid.Column="1" />
+        <Button x:Name="btnPreview" Content="preview" HorizontalAlignment="Left" Margin="196.5,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Grid.Column="1" IsEnabled="False" />
         <Button x:Name="btnPublish" Content="publiceer" HorizontalAlignment="Left" Margin="286,30,0,0" VerticalAlignment="Top" Width="80" Height="45" IsEnabled="False" Click="BtnPublish_Click" Grid.Column="1"/>
 
         <ComboBox x:Name="cbCategory" HorizontalAlignment="Left" Margin="621.5,169,0,0" VerticalAlignment="Top" Width="214"  Height="26" BorderBrush="#FF00356A" Background="{x:Null}" Grid.Column="1">
@@ -30,22 +30,20 @@
             <ComboBoxItem Content="Buitenlandse zaken" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="Showbizz" HorizontalAlignment="Left" Width="118" />
         </ComboBox>
-        <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="571.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A" Grid.Column="1"/>
+        <TextBox x:Name="txtId" HorizontalAlignment="Left" Height="30" Margin="571.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" BorderBrush="#FF00356A" Grid.Column="1" IsEnabled="False"/>
         <Label x:Name="lblError" Content="Foutmelding" HorizontalAlignment="Left" Margin="466,17,0,0" VerticalAlignment="Top" Height="83" Width="391" Grid.Column="1"/>
-        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="776.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A" Grid.Column="1"/>
-        <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1201.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A" Grid.Column="1"/>
-        <ComboBox x:Name="combobox1" HorizontalAlignment="Left" Height="40" Margin="886,35,0,0" VerticalAlignment="Top" Width="440" Grid.Column="1"/>
+        <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Height="30" Margin="776.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" BorderBrush="#FF00356A" Grid.Column="1" IsEnabled="False"/>
+        <TextBox x:Name="txtWriter" HorizontalAlignment="Left" Height="30" Margin="1201.5,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" BorderBrush="#FF00356A" Grid.Column="1" IsEnabled="False"/>
         <Button x:Name="btnOpenfile" Content="Open file " HorizontalAlignment="Left" Height="40" Margin="1342,35,0,0" VerticalAlignment="Top" Width="144" Click="BtnOpenfile_Click" Grid.Column="1"/>
-        <TextBox x:Name="txbTextArticle" HorizontalAlignment="Left" Height="718" Margin="621.5,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" Grid.Column="1" KeyUp="OnKeyUpTextArticle"/>
+        <TextBox x:Name="txbTextArticle" HorizontalAlignment="Left" Height="718" Margin="621.5,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="801" Grid.Column="1" KeyUp="OnKeyUpTextArticle" IsEnabled="False"/>
         <Label x:Name="lblLenght" Content="" HorizontalAlignment="Left" Margin="622,209,0,0" VerticalAlignment="Top" Grid.Column="1" Width="120"/>
         <StackPanel x:Name="authPubPanel" HorizontalAlignment="Left" Height="40" Margin="1277.5,164,0,0" VerticalAlignment="Top" Width="100" Grid.Column="1">
             <RadioButton x:Name="rbAutorisationNo" Content="Nee" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked="True"/>
             <RadioButton x:Name="rbAutorisationYes" Content="Ja" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
-        <CheckBox x:Name="cbxPublished" Content="Gepubliceerd" HorizontalAlignment="Left" Margin="1277.5,209,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="1" Checked="cbxPublished_Checked"/>
+        <CheckBox x:Name="cbxPublished" Content="Gepubliceerd" HorizontalAlignment="Left" Margin="1277.5,209,0,0" VerticalAlignment="Top" IsEnabled="False" Grid.Column="1"/>
         <Button x:Name="btnAdd_Cancel_New_Article" Content="Annuleer" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="CancelNewArticleClicked" Grid.Column="1"/>
         <Button x:Name="btnAdd_New_Article" HorizontalAlignment="Left" Margin="376,30,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="AddNewArticleClicked" Grid.Column="1" Content="Niewe Artikel"/>
-        <Button x:Name="btnTest" Content="Test" Grid.Column="1" HorizontalAlignment="Left" Margin="466,282,0,0" VerticalAlignment="Top" Width="76" Click="btnTest_Click"/>
 
 
     </Grid>

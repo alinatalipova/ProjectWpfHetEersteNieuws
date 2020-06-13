@@ -28,13 +28,12 @@ namespace Mediabank_GUI
             btnAdd.Visibility = Visibility.Hidden;
             btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
             btnAdd_New_Article.Visibility = Visibility.Visible;
-            lbxArticles.SelectionMode = SelectionMode.Multiple; // activeren van meerdere selecties , selecties van meerde items
 
         }
 
         private void AddArticlClicked(object sender, RoutedEventArgs e)
         {
-            if (GetErrorInfoAndSetCounter())
+            if (VerifyValidationAndSetCounter())
             {
                 Article newArticle = new Article();
 
@@ -42,7 +41,9 @@ namespace Mediabank_GUI
                 newArticle.ID = txtId.Text;
                 newArticle.Author = txtWriter.Text;
                 newArticle.Content = txbTextArticle.Text;
-
+                newArticle.AuthToPublish = rbAutorisationYes.IsChecked ?? false;
+                newArticle.Categroy = cbCategory.Text;
+                newArticle.CreationDate = DateTime.Today;
                 if (rbAutorisationYes.IsChecked == true)
                 {
                     ToPublishArticles.Add(newArticle);
@@ -58,6 +59,13 @@ namespace Mediabank_GUI
                 btnAdd_New_Article.Visibility = Visibility.Visible;
 
                 btnAdd_Cancel_New_Article.Visibility = Visibility.Hidden;
+
+                ClearDetailView();
+
+                txtId.IsEnabled = false;
+                txtTitle.IsEnabled = false;
+                txbTextArticle.IsEnabled = false;
+                txtWriter.IsEnabled = false;
             }
 
         }
@@ -70,6 +78,7 @@ namespace Mediabank_GUI
             if (selectie != null)
             {
                 articles.Remove(selectie);
+                ToPublishArticles.Remove(selectie);
                 UpdateDetailsView(new Article());
             }
             UpdateUI();
@@ -77,43 +86,47 @@ namespace Mediabank_GUI
 
         private void Btnmodify_Click(object sender, RoutedEventArgs e)
         {
-            if (lbxArticles.SelectedItem != null && GetErrorInfoAndSetCounter())
+            if (lbxArticles.SelectedItem != null && VerifyValidationAndSetCounter())
             // casten om een access te hebben aan the propreties van het object
             {
-                Article selectedArticel = (Article)lbxArticles.SelectedItem; // we casten
+                Article selectedArticle = (Article)lbxArticles.SelectedItem; // we casten
 
-
-
-                if (rbAutorisationYes.IsChecked == true)
+                if (rbAutorisationYes.IsChecked == true && !ToPublishArticles.Contains(selectedArticle))
                 {
-
-                    ToPublishArticles.Add(selectedArticel);
+                    ToPublishArticles.Add(selectedArticle);
                 }
                 else
                 {
-                    ToPublishArticles.Remove(selectedArticel);
+                    ToPublishArticles.Remove(selectedArticle);
                 }
 
-                selectedArticel.Title = txtTitle.Text;
-                selectedArticel.ID = txtId.Text;
-                selectedArticel.Author = txtWriter.Text;
-                selectedArticel.Content = txbTextArticle.Text;
+                selectedArticle.Title = txtTitle.Text;
+                selectedArticle.ID = txtId.Text;
+                selectedArticle.Author = txtWriter.Text;
+                selectedArticle.Content = txbTextArticle.Text;
+                selectedArticle.Categroy = cbCategory.Text;
+                selectedArticle.AuthToPublish = rbAutorisationYes.IsChecked ?? false;
 
                 lbxArticles.ItemsSource = null;
                 lbxArticles.ItemsSource = articles;
             }
-            //ErrorMessage wordt getoond
             else
             {
-                GetErrorInfoAndSetCounter();
+                VerifyValidationAndSetCounter();
             }
+            ClearDetailView();
+            UpdateUI();
 
+            txtId.IsEnabled = false;
+            txtTitle.IsEnabled = false;
+            txbTextArticle.IsEnabled = false;
+            txtWriter.IsEnabled = false;
         }
 
         private void BtnPublish_Click(object sender, RoutedEventArgs e)
         {
 
-            using (StreamWriter writer = new StreamWriter("article1.txt"))
+            using (StreamWriter writer = new StreamWriter("article.txt"))
 
                 foreach (Article selectedItem in ToPublishArticles)
                 {
@@ -121,16 +134,14 @@ namespace Mediabank_GUI
                     selectedItem.Published = true;
 
                     {
-                        writer.Write(selectedItem.Title);
-                        writer.WriteLine(selectedItem.Content);
-                        writer.WriteLine(selectedItem.Author);
-
+                        writer.WriteLine($"<h1>{selectedItem.Title}</h1>");
+                        writer.WriteLine($"<p>{selectedItem.Content}</p>");
+                        writer.WriteLine($"<p><i>{selectedItem.Author }</i></p>");
+                        writer.WriteLine($"<p>{selectedItem.CreationDate }</p>");
+                        Console.WriteLine("=====================================");
                     }
                     UpdateDetailsView(selectedItem);
-
-
                 }
-
         }
 
         private void AddNewArticleClicked(object sender, RoutedEventArgs e)
@@ -146,12 +157,17 @@ namespace Mediabank_GUI
             btnmodify.Visibility = Visibility.Hidden;
             btnPreview.Visibility = Visibility.Hidden;
 
+            txtId.IsEnabled = true;
+            txtTitle.IsEnabled = true;
+            txbTextArticle.IsEnabled = true;
+            txtWriter.IsEnabled = true;
+
             //ErrorMessage wordt getoond
-            GetErrorInfoAndSetCounter();
+            VerifyValidationAndSetCounter();
 
         }
 
-      
+
         private void CancelNewArticleClicked(object sender, RoutedEventArgs e)
         {
             btnAdd_New_Article.Visibility = Visibility.Visible;
@@ -169,14 +185,6 @@ namespace Mediabank_GUI
         // file opzoeken en openen 
         private void BtnOpenfile_Click(object sender, RoutedEventArgs e)
         {
-            // openfilediaolo
-            // OpenFileDialog ofd = new OpenFileDialog();
-            // ofd.ShowDialog();
-
-
-            // Create OpenFileDialog
-            // Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
-
             // Launch OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = openFileDlg.ShowDialog();
             // Get the selected file name and display in a TextBox.
@@ -184,11 +192,10 @@ namespace Mediabank_GUI
             if (result == true)
             {
                 openFileDlg.Filter = "All files (*.*)|*.*";
-                combobox1.Text = openFileDlg.FileName;
                 txbTextArticle.Text = System.IO.File.ReadAllText(openFileDlg.FileName);
             }
 
-            GetErrorInfoAndSetCounter();
+            VerifyValidationAndSetCounter();
 
         }
 
@@ -212,19 +219,25 @@ namespace Mediabank_GUI
             {
                 // buttons enablen
                 btnErase.IsEnabled = true;
-                btnPublish.IsEnabled = true;
                 btnPreview.IsEnabled = true;
                 btnmodify.IsEnabled = true;
+
+                txtId.IsEnabled = true;
+                txtTitle.IsEnabled = true;
+                txbTextArticle.IsEnabled = true;
+                txtWriter.IsEnabled = true;
             }
-            if (rbAutorisationNo.IsChecked == true)
+            if (ToPublishArticles.Count == 0)
             {
                 btnPublish.IsEnabled = false;
             }
+            else
+            {
+                btnPublish.IsEnabled = true;
+            }
         }
 
-        
-
-        private bool GetErrorInfoAndSetCounter()//toont de error tekst +kijken dat alle velden in orde zijn
+        private bool VerifyValidationAndSetCounter()//toont de error tekst +kijken dat alle velden in orde zijn
         {
             int AmountOfCharInTitle = txtTitle.Text.Length;
             bool checkContentTitle = true;
@@ -234,7 +247,7 @@ namespace Mediabank_GUI
             bool checkContentAutorisation = true;
             bool checkContentLenght = true;
             string errormessage = "";
-            if (string.IsNullOrEmpty(txtTitle.Text) )
+            if (string.IsNullOrEmpty(txtTitle.Text)) // om twee cases te hebben , lege string of Null 
             {
                 checkContentTitle = false;
                 errormessage += "Vul een titel in!" + Environment.NewLine;
@@ -247,44 +260,40 @@ namespace Mediabank_GUI
 
             if (string.IsNullOrEmpty(txtId.Text))
             {
-                
+
                 checkContentId = false;
                 errormessage += "Vul een ID nummer in!" + Environment.NewLine;
             }
-            
+
             if (string.IsNullOrEmpty(txtWriter.Text))
             {
-                
+
                 checkContentWriter = false;
                 errormessage += "Vul de autheur in!" + Environment.NewLine;
             }
-            
-           
-            
-            if (rbAutorisationNo.IsChecked==false &&rbAutorisationYes.IsChecked ==false)
+
+            if (rbAutorisationNo.IsChecked == false && rbAutorisationYes.IsChecked == false)
             {
                 checkContentAutorisation = false;
                 errormessage += "Authorisatie tot publicatie moet ingevuld worden" + Environment.NewLine;
             }
-            
-            if (cbCategory.SelectedIndex== -1)
+
+            if (cbCategory.SelectedIndex == -1)
             {
                 checkContentCategory = false;
                 errormessage += "geef een catefgorie aan!" + Environment.NewLine;
             }
- 
 
-            List<string> articleText = new List<string>();
             // trimEnd : om de spatie niet mee te tellen , ToList () : om array van strings naar lijs te converteren ( van split ) 
-            
-            articleText = txbTextArticle.Text.TrimEnd(' ').Split(' ').ToList();
-            if (articleText.Count >= 500)
+
+            List<string> words = txbTextArticle.Text.TrimEnd(' ').Split(' ').ToList();
+            if (words.Count > 500)
             {
-               errormessage += "Mag niet langer zijn dan 500 woorden " + Environment.NewLine;
-               checkContentLenght = false;
+                errormessage += "Mag niet langer zijn dan 500 woorden " + Environment.NewLine;
+                checkContentLenght = false;
             }
-            
-            lblLenght.Content = articleText.Count;
+
+            lblLenght.Content = words.Count;
 
             lblError.Content = errormessage;
 
@@ -292,7 +301,7 @@ namespace Mediabank_GUI
             //mag alleen cijfers invullen in ID
 
 
-            if (checkContentId &&
+            if (checkContentId && // als een van die niet true is dan is het fals voor alles 
                 checkContentTitle &&
                 checkContentWriter &&
                 checkContentCategory &&
@@ -311,7 +320,9 @@ namespace Mediabank_GUI
             txtTitle.Text = article.Title;
             txtWriter.Text = article.Author;
             txbTextArticle.Text = article.Content;
-
+            cbCategory.Text = article.Categroy;
+            rbAutorisationYes.IsChecked = article.AuthToPublish;
+            rbAutorisationNo.IsChecked = !rbAutorisationYes.IsChecked; // omgekeerd van autorisation van yes 
 
             if (article.Published)
             {
@@ -336,22 +347,9 @@ namespace Mediabank_GUI
             lblLenght.Content = "";
         }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e)
-        {
-            
-            //ErrorMessage wordt getoond
-            //lblError.Content = GetErrorInfoAndSetCounter().Message;
-        }
-
- 
         private void OnKeyUpTextArticle(object sender, KeyEventArgs e)//wanneer je key up gaat dan wodt lengte getelt
         {
-            GetErrorInfoAndSetCounter();
-        }
-
-        private void cbxPublished_Checked(object sender, RoutedEventArgs e)
-        {
-
+            VerifyValidationAndSetCounter();
         }
     }
 }
